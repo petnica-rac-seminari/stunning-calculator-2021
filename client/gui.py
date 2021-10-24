@@ -75,7 +75,7 @@ def slanje():
      but_pos['text']= but_pos['text'] + '1'
 
 
-     rezultat = evaluation.evaluate(but_rez['text'])
+     rezultat = evaluation.evaluate(but_pos['text'])
      but_rez['text'] = rezultat
      #ispis = "poslato"
      #izlaz = image_parse.ParseImage(ulaz)    
