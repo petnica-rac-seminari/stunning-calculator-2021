@@ -1,5 +1,6 @@
 from mlxtend.data import loadlocal_mnist
 import numpy as np
+import matplotlib.pyplot as plt
 
 def normalize(x: np.ndarray) -> np.ndarray:
     return (x - x.min()) / (x.max() - x.min())
@@ -12,6 +13,7 @@ def vectorize(y: np.ndarray) -> np.ndarray:
     print(y[0])
     return vector_y
 
+# staviti random redosled X-eva i y-ona
 def get_data():
     X, y = loadlocal_mnist(
         "train-images.idx3-ubyte",
@@ -22,9 +24,11 @@ def get_data():
         "t10k-labels.idx1-ubyte"
     )
     X = normalize(X)
+    Xt = normalize(Xt)
 
     y = vectorize(y)
     yt = vectorize(yt)
+
     return X, y, Xt, yt
 
 get_data()
