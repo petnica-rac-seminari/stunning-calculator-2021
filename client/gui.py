@@ -3,6 +3,7 @@ import tkinter
 import tkinter.messagebox as mb
 import os
 import numpy
+import image_parse
 
 window = Tk()
 window.title('Racunajka')
@@ -19,14 +20,15 @@ def locate_xy(event):
     current_x, current_y = event.x, event.y
 
 nizTacaka = []
+
 def addLine(event):
+    global current_x, current_y    
+    if event.x > 0 and event.x < 337 and event.y > 0 and event.y < 339:
+        canvas.create_line((current_x,current_y,event.x,event.y),fill = color)        
+        current_x, current_y = event.x, event.y
+        nizTacaka.append((event.x, event.y))
+        print(event.x, event.y)        
 
-    global current_x, current_y
-
-    canvas.create_line((current_x,current_y,event.x,event.y),fill = color)
-    current_x, current_y = event.x, event.y
-    nizTacaka.append((event.x, event.y))
-    print(event.x, event.y)
 
 canvas= Canvas(window,background='white',width=337,height=339) 
 canvas.place(x=0,y=0)
@@ -48,7 +50,9 @@ def deljnje():
      operacija = '/'
 #FUNKCIJA ZA SLANJE 
 def slanje():
-    pass
+     print(nizTacaka)
+     arr = image_parse.ParseImage(numpy.array(nizTacaka))    
+     print(arr)
 
     
 #VELICINA
@@ -112,21 +116,5 @@ but_deljenje.place(x =prvax, y= prvay+341)
 #EROR BLOK
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 window.mainloop()
+
