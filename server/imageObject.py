@@ -1,9 +1,5 @@
 from pydantic import BaseModel
-import numpy as npy
-
-lst = []
-for i in range (0,785):
-    lst.append(i)
+from typing import List
 
 class ImageObject(BaseModel):
-    image: list #dogovor sa ML, videcemo
+    image: List[int] = None
