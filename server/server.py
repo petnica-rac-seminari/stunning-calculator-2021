@@ -8,6 +8,6 @@ rsp = Response()
 def recognise_image():
     return rsp.handlePOSTReq(request.json)
 
-app.run(host = '0.0.0.0', port=5000 )
+app.run(host = 'localhost', port=5000 )
 
 
