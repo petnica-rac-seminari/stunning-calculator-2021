@@ -4,17 +4,10 @@ import dataset as data
 
 #region relu +
 def ReLU(data):
-
-    if (data > 0):
-        return data
-    else:
-        return 0
+    return data * (data > 0)
 
 def dReLU(data):
-    if (data > 0):
-        return 1
-    else:
-        return 0
+    return 1 * (data > 0)
 
 #endregion
 
