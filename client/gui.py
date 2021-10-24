@@ -8,6 +8,7 @@ import image_parse
 window = Tk()
 window.title('Racunajka')
 window.geometry("400x600")
+window.resizable(0, 0)
 window.configure(bg='black')
 
 #CRTANJE
@@ -59,12 +60,20 @@ def mnozenje():
 def deljnje():
      operacija = '/'
 #FUNKCIJA ZA SLANJE 
+ispis = ' '
+infoMl= 1
 def slanje():          
      image_parse.ParseImage(nizTacaka)    
      nizTacaka.clear()
      canvas.delete("all")
+     
+     but_rez['text']= but_rez['text'] + '1'
+     #ispis = "poslato"
+     #izlaz = image_parse.ParseImage(ulaz)    
      #print(izlaz)
-
+def brisanje():
+     string = str(but_rez['text'])     
+     but_rez['text'] = string[:len(string) - 1]
     
 #VELICINA
 wid = 50 #sirina
@@ -114,6 +123,31 @@ font= ("Verdana" , 30,'bold'),
 command = slanje
 )
 but_deljenje.place(x =prvax, y= prvay+341)
+#BRISANJE
+but_deljenje = Button(window,text='⤆', image = common_img,
+width= wid ,height= hei, bd = 3,
+compound="c",bg='red',fg='white',
+font= ("Verdana" , 30,'bold'),
+command= brisanje
+)
+but_deljenje.place(x =prvax, y= prvay+423)
+
+#ISPIS REZULTATA
+but_rez = Button(window,text='REZULTAT', image = common_img,
+width= 337 ,height= 80, bd = 0,
+compound="c",bg='white',fg='black',
+font= ("Verdana" , 30,'bold'),
+state= DISABLED,
+)
+but_rez.place(x =0, y=344)
+#ISPIS REZULTATA
+but_rez = Button(window,text=ispis, image = common_img,
+width= 337 ,height= 80, bd = 0,
+compound="c",bg='white',fg='black',
+font= ("Verdana" , 20,'bold'),
+state= DISABLED,
+)
+but_rez.place(x =0, y=424)
 
 #ISPIS IZRAZA
 #myLabel1=Label(window,)
