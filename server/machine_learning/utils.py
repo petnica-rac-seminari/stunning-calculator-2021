@@ -27,7 +27,11 @@ def Softmax(data):
 def CELoss(y, yH): 
     return -np.sum(y * np.log(yH) ) / y.shape[0]
 
-
-
+def Randomize(X, y):
+    index = np.arange(X.shape[0])
+    np.random.shuffle(index)
+    X = X[index]
+    y = y[index]
+    return X, y
 
 

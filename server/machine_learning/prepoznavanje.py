@@ -1,41 +1,35 @@
+import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import random
 
-import dataset as data
+import dataset
 import utils
 
-X, y, tX, ty = data.get_data()
+def PrepoznavanjeCifre(X):
+    w1 = pd.read_csv('parameters/parameters_w1.csv', sep=',',header=None)
+    w1 = w1.to_numpy()
+    w1 = w1[:, 1:]
 
-X = X[:1000]
-tX = tX[:1000]
+    b1 = pd.read_csv('parameters/parameters_b1.csv', sep=',',header=None)
+    b1 = b1.to_numpy()
+    b1 = b1[:, 1:]
 
-y = y[:1000]
-ty = ty[:1000]
+    w2 = pd.read_csv('parameters/parameters_w2.csv', sep=',',header=None)
+    w2 = w2.to_numpy()
+    w2 = w2[:, 1:]
 
-#region init w and b
-w1 = np.random.uniform(-10, 10, (X.shape[1], 400)) * 1e-2
-b1 = np.random.uniform(-10, 10, (1, 400)) * 1e-2
+    b2 = pd.read_csv('parameters/parameters_b2.csv', sep=',',header=None)
+    b2 = b2.to_numpy()
+    b2 = b2[:, 1:]
 
-w2 = np.random.uniform(-10, 10, (400, 100)) * 1e-2
-b2 = np.random.uniform(-10, 10, (1, 100)) * 1e-2
+    w3 = pd.read_csv('parameters/parameters_w3.csv', sep=',',header=None)
+    w3 = w3.to_numpy()
+    w3 = w3[:, 1:]
 
-w3 = np.random.uniform(-10, 10, (100, 10)) * 1e-2
-b3 = np.random.uniform(-10, 10, (1, 10)) * 1e-2
-#endregion
-
-#region hyperparams
-epoch = int(1e3)
-lr = 1e-3
-
-L = []
-#endregion
-
-#region learning
-for i in range (1, epoch + 1):
-    if i % (epoch / 10) == 0:
-        print("iteracija ", i)
+    b3 = pd.read_csv('parameters/parameters_b3.csv', sep=',',header=None)
+    b3 = b3.to_numpy()
+    b3 = b3[:, 1:]
     
-    #region feed forward
     z1 = X @ w1 + b1
     a1 = utils.ReLU(z1)
 
@@ -45,53 +39,12 @@ for i in range (1, epoch + 1):
     z3 = a2 @ w3 + b3
     yh = utils.Softmax(z3)
 
-    L.append(utils.CELoss(y, yh))
-    #endregion
-    
-    #region back propagation
-    dz3 = yh - y
-    dw3 = a2.transpose() @ dz3
-    db3 = dz3.sum(axis=0)
+    rez = np.argmax(yh, axis=1)
+    return rez
 
-    da2 = dz3 @ w3.transpose()
-    dz2 = utils.dReLU(z2) * da2
-    dw2 = a1.transpose() @ dz2
-    db2 = dz2.sum(axis=0)
-
-    da1 = dz2 @ w2.transpose()
-    dz1 = utils.dReLU(z1) * da1
-    dw1 = X.transpose() @ dz1
-    db1 = dz1.sum(axis=0)
-    #endregion
-
-    #region learnig
-    w3 -= lr * dw3
-    b3 -= lr * db3
-
-    w2 -= lr * dw2
-    b2 -= lr * db2
-
-    w1 -= lr * dw1
-    b1 -= lr * db1
-    #endregion
-
-#endregion
-
-#region testing
-tz1 = tX @ w1 + b1
-ta1 = utils.ReLU(tz1)
-
-tz2 = ta1 @ w2 + b2
-ta2 = utils.ReLU(tz2)
-
-tz3 = ta2 @ w3 + b3
-tyh = utils.Softmax(tz3)
-#endregion
-
-#region plot
-plt.plot(L)
-_, ax = plt.subplots(1, 2)
-ax[0].matshow(ty)
-ax[1].matshow(tyh)
-plt.show()
-#endregion
+# _, _, primerX, primery = dataset.get_data()
+# index = int(random.random() * primerX.shape[0])
+# primerX = primerX[index]
+# primery = primery[index]
+# print(primery)
+# print(PrepoznavanjeCifre(primerX))
