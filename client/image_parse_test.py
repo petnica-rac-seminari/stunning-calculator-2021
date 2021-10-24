@@ -19,8 +19,6 @@ points = GenerateRandomPoints()
 
 minPoint, maxPoint = image_parse.GetMinMaxPoints(points)
 
-print(minPoint)
-print(maxPoint)
 fig, ax = pyplot.subplots()
 
 rect = pyplot.Rectangle((minPoint[0], minPoint[1]), maxPoint[0] - minPoint[0], maxPoint[1] - minPoint[1], fill = False)
@@ -29,6 +27,7 @@ ax.scatter(points[:, 0], points[:, 1], marker = ".")
 ax.add_patch(rect)
 ax.scatter([maxPoint[0], minPoint[0]], [maxPoint[1], minPoint[1]], marker = ".")
 
+print(points)
 result = image_parse.ParseImage(points)
 print(result)
 pyplot.show()

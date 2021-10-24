@@ -26,7 +26,7 @@ def addLine(event):
     if event.x > 0 and event.x < 337 and event.y > 0 and event.y < 339:
         canvas.create_line((current_x,current_y,event.x,event.y),fill = color)        
         current_x, current_y = event.x, event.y
-        nizTacaka.append((event.x, event.y))
+        nizTacaka.append([event.x, event.y])
         print(event.x, event.y)        
 
 
@@ -50,9 +50,10 @@ def deljnje():
      operacija = '/'
 #FUNKCIJA ZA SLANJE 
 def slanje():
-     print(nizTacaka)
-     arr = image_parse.ParseImage(numpy.array(nizTacaka))    
-     print(arr)
+     ulaz = numpy.array(nizTacaka)
+     print(ulaz)
+     izlaz = image_parse.ParseImage(ulaz)    
+     print(izlaz)
 
     
 #VELICINA
