@@ -34,5 +34,5 @@ def ParseImage(points):
     img = img.transpose(Image.FLIP_TOP_BOTTOM)   
 
     img = img.resize((outputSize[0], outputSize[1]), Image.LANCZOS) 
-    
+
     return numpy.array(img.getdata())
