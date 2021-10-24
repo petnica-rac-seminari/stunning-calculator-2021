@@ -5,6 +5,7 @@ import os
 import numpy
 import image_parse
 import evaluation
+import server_interface
 
 window = Tk()
 window.title('Racunajka')
@@ -68,21 +69,25 @@ def deljnje():
 ispis = ' '
 rezultat = 0
 def slanje():          
-     image_parse.ParseImage(nizTacaka)    
+     arr = image_parse.ParseImage(nizTacaka)    
+
+     #try:
+     result = server_interface.SendParsedImage(arr)     
+
      nizTacaka.clear()
      canvas.delete("all")
      
-     but_pos['text']= but_pos['text'] + '1'
+     but_pos['text']= but_pos['text'] + result
 
-
-     rezultat = evaluation.evaluate(but_rez['text'])
+     rezultat = evaluation.evaluate(but_pos['text'])
      but_rez['text'] = rezultat
-     #ispis = "poslato"
-     #izlaz = image_parse.ParseImage(ulaz)    
-     #print(izlaz)
+     #except:
+     #print("Failed to send parsed image")
+
 def brisanje():
      string = str(but_pos['text'])     
      but_pos['text'] = string[:len(string) - 1]
+     rezultat = evaluation.evaluate(but_pos['text'])
 
     
 #VELICINA
