@@ -1,6 +1,6 @@
 import tkinter
+import numpy
 
-def 
-
-def ParseImage(image):
+def ParseImage(point_array):
     
+    pass    
