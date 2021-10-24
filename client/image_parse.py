@@ -10,8 +10,7 @@ def ConvertGroup(group):
 
     return arr
 
-def GetPointsMinMax(points):
-    print(len(points))
+def GetPointsMinMax(points):    
     xMax = points[numpy.argmax(points[:, 0]), 0]
     xMin = points[numpy.argmin(points[:, 0]), 0]
     yMax = points[numpy.argmax(points[:, 1]), 1]
@@ -79,23 +78,14 @@ def ParseImage(group):
 
     #get the top-left and bottom-right most points
     group = ConvertGroup(group)
-    minPoint, maxPoint = GetGroupMinMax(group)  
+    minPoint, maxPoint = GetGroupMinMax(group)      
 
-    print("\n\n\nPre transform")
-    print(group)
-
-    group = TransformGroup(group, minPoint, maxPoint, outputImageSize * 2, borderSpacing * 2)
-
-    print("\n\n\nPost transform")
-
-    print(group)
+    group = TransformGroup(group, minPoint, maxPoint, outputImageSize * 2, borderSpacing * 2)    
 
     DrawGroup(group, context, lineWidth)    
 
     #img = img.transpose(Image.FLIP_TOP_BOTTOM)   
 
-    img = img.resize((outputImageSize[0], outputImageSize[1]), Image.LANCZOS) 
+    img = img.resize((outputImageSize[0], outputImageSize[1]), Image.LANCZOS)     
 
-    img.show()
-
-    return numpy.array(img.getdata())
+    return numpy.array(img.getdata()).tolist()
