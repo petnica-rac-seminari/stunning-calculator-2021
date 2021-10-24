@@ -7,7 +7,7 @@ import image_parse
 
 window = Tk()
 window.title('Racunajka')
-window.geometry("400x600")
+window.geometry("400x503")
 window.resizable(0, 0)
 window.configure(bg='black')
 
@@ -53,12 +53,16 @@ canvas.bind('<B1-Motion>', mouseMotion)
 operacija =' '
 def sabiranje():
      operacija = '+'
+     but_rez['text']= but_rez['text'] + '+'
 def oduzimanje():
      operacija = '-'
+     but_rez['text']= but_rez['text'] + '-'
 def mnozenje():
      operacija = '*'
+     but_rez['text']= but_rez['text'] + '*'
 def deljnje():
      operacija = '/'
+     but_rez['text']= but_rez['text'] + '/'
 #FUNKCIJA ZA SLANJE 
 ispis = ' '
 infoMl= 1
