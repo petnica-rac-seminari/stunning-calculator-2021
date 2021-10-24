@@ -2,6 +2,9 @@ import tkinter
 import numpy
 from PIL import Image, ImageDraw, ImageFont
 
+from matplotlib import pyplot
+from matplotlib import patches
+
 def GetMinMaxPoints(points):
     xMax = points[numpy.argmax(points[:, 0]), 0]
     xMin = points[numpy.argmin(points[:, 0]), 0]
@@ -11,8 +14,6 @@ def GetMinMaxPoints(points):
 
 def ParseImage(points):
     minPoint, maxPoint = GetMinMaxPoints(points)
-
-    print(points)    
 
     spacing = numpy.array((3, 3))
     outputSize = numpy.array((28, 28))
@@ -34,5 +35,4 @@ def ParseImage(points):
 
     img = img.resize((outputSize[0], outputSize[1]), Image.LANCZOS) 
     
-    print(numpy.array(img.getdata()))
     return numpy.array(img.getdata())
