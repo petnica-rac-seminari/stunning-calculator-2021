@@ -28,6 +28,8 @@ Treba neuronskom mrezom da se napravi algoritam (funkcija) koja prevodi sliku u 
   4. Obrada gresaka
     1. prepoznavanje greska - server za prepoznavanje ne vraca korektnu vrednost
     2. input greska - neispravan unos u buffer
+      1. neispravan unos u buffer
+      2. unos broja koji nije jednocifren
     3. matematicka greska - unos zabranjene matematicke operacije
   5. Korisnicki interfejs
     1. to be link...
