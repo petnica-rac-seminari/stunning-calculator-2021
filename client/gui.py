@@ -3,7 +3,7 @@ import tkinter
 import tkinter.messagebox as mb
 import os
 import numpy
-import image_parse
+#import image_parse
 
 window = Tk()
 window.title('Racunajka')
@@ -49,10 +49,10 @@ def mnozenje():
 def deljnje():
      operacija = '/'
 #FUNKCIJA ZA SLANJE 
-def slanje():
-     print(nizTacaka)
-     arr = image_parse.ParseImage(numpy.array(nizTacaka))    
-     print(arr)
+#def slanje():
+     #print(nizTacaka)
+     #arr = image_parse.ParseImage(numpy.array(nizTacaka))    
+     #print(arr)
 
     
 #VELICINA
@@ -100,7 +100,7 @@ but_deljenje = Button(window,text='✓', image = common_img,
 width= wid ,height= hei, bd = 3,
 compound="c",bg='green',fg='white',
 font= ("Verdana" , 30,'bold'),
-command = slanje
+#command = slanje
 )
 but_deljenje.place(x =prvax, y= prvay+341)
 
@@ -108,8 +108,8 @@ but_deljenje.place(x =prvax, y= prvay+341)
 #myLabel1=Label(window,)
 
 #ISPRIS REZULTATA
-#myLabel2= Label(window,rezultat)
-
+Label2= Label(window,'ovde ide rezultat')
+Label2.place(x=0,y=580)
       
     
 
