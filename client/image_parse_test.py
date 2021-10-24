@@ -3,17 +3,33 @@ from matplotlib import pyplot
 import numpy
 import image_parse
 
-def ShowPoints(points):    
-    pyplot.plot(points[:, 0], points[:, 1], 'bo')    
+def GenerateRandomPoints():
+    points = numpy.array([()])
 
-points = numpy.array([()])
-points.resize((100, 2))
+    count = 10
+    points.resize((count, 2))
 
-for x in range(100):
-    points[x] = (random.random(), random.random())
+    for x in range(count):
+        points[x] = (random.random(), random.random())
 
-ShowPoints(points)
+    return points
 
-image_parse.ParseImage(points)
+#points = numpy.array(points)
+points = GenerateRandomPoints()
+
+minPoint, maxPoint = image_parse.GetMinMaxPoints(points)
+
+print(minPoint)
+print(maxPoint)
+fig, ax = pyplot.subplots()
+
+rect = pyplot.Rectangle((minPoint[0], minPoint[1]), maxPoint[0] - minPoint[0], maxPoint[1] - minPoint[1], fill = False)
+
+ax.scatter(points[:, 0], points[:, 1], marker = ".")    
+ax.add_patch(rect)
+ax.scatter([maxPoint[0], minPoint[0]], [maxPoint[1], minPoint[1]], marker = ".")
+
+result = image_parse.ParseImage(points)
+print(result)
 
 pyplot.show()
