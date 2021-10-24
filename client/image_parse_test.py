@@ -30,5 +30,5 @@ ax.add_patch(rect)
 ax.scatter([maxPoint[0], minPoint[0]], [maxPoint[1], minPoint[1]], marker = ".")
 
 result = image_parse.ParseImage(points)
-
+print(result)
 pyplot.show()
