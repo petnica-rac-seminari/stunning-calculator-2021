@@ -4,6 +4,7 @@ import tkinter.messagebox as mb
 import os
 import numpy
 import image_parse
+import evaluation
 
 window = Tk()
 window.title('Racunajka')
@@ -53,31 +54,36 @@ canvas.bind('<B1-Motion>', mouseMotion)
 operacija =' '
 def sabiranje():
      operacija = '+'
-     but_rez['text']= but_rez['text'] + '+'
+     but_pos['text']= but_pos['text'] + '+'
 def oduzimanje():
      operacija = '-'
-     but_rez['text']= but_rez['text'] + '-'
+     but_pos['text']= but_pos['text'] + '-'
 def mnozenje():
      operacija = '*'
-     but_rez['text']= but_rez['text'] + '*'
+     but_pos['text']= but_pos['text'] + '*'
 def deljnje():
      operacija = '/'
-     but_rez['text']= but_rez['text'] + '/'
+     but_pos['text']= but_pos['text'] + '/'
 #FUNKCIJA ZA SLANJE 
 ispis = ' '
-infoMl= 1
+rezultat = 0
 def slanje():          
      image_parse.ParseImage(nizTacaka)    
      nizTacaka.clear()
      canvas.delete("all")
      
-     but_rez['text']= but_rez['text'] + '1'
+     but_pos['text']= but_pos['text'] + '1'
+
+
+     rezultat = evaluation.evaluate(but_rez['text'])
+     but_rez['text'] = rezultat
      #ispis = "poslato"
      #izlaz = image_parse.ParseImage(ulaz)    
      #print(izlaz)
 def brisanje():
-     string = str(but_rez['text'])     
-     but_rez['text'] = string[:len(string) - 1]
+     string = str(but_pos['text'])     
+     but_pos['text'] = string[:len(string) - 1]
+
     
 #VELICINA
 wid = 50 #sirina
@@ -137,29 +143,22 @@ command= brisanje
 but_deljenje.place(x =prvax, y= prvay+423)
 
 #ISPIS REZULTATA
-but_rez = Button(window,text='REZULTAT', image = common_img,
+but_rez = Button(window,text=rezultat, image = common_img,
 width= 337 ,height= 80, bd = 0,
 compound="c",bg='white',fg='black',
 font= ("Verdana" , 30,'bold'),
 state= DISABLED,
 )
 but_rez.place(x =0, y=344)
-#ISPIS REZULTATA
-but_rez = Button(window,text=ispis, image = common_img,
+#ISPIS POSTUPAK
+but_pos = Button(window,text=ispis, image = common_img,
 width= 337 ,height= 80, bd = 0,
 compound="c",bg='white',fg='black',
 font= ("Verdana" , 20,'bold'),
 state= DISABLED,
 )
-but_rez.place(x =0, y=424)
+but_pos.place(x =0, y=424)
 
-#ISPIS IZRAZA
-#myLabel1=Label(window,)
-
-#ISPRIS REZULTATA
-#Label2= Label(window,'ovde ide rezultat')
-#Label2.place(x=0,y=580)
-      
     
 
 #EROR BLOK
