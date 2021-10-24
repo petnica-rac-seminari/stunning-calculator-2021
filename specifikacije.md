@@ -9,7 +9,8 @@ Program je podeljen na Client (Front-end) i Server(Back-end). Client ne treba da
 Treba neuronskom mrezom da se napravi algoritam (funkcija) koja prevodi sliku u INT, zatim da se odrade matematicke operacije na istoj.
 
 1.
-## Funkcionalna specifikacija:
+
+## Funkcionalna specifikacija
 
   1. Unos i prepoznavanje brojeva
     1. Unos je jednocifrenog broja
@@ -30,14 +31,14 @@ Treba neuronskom mrezom da se napravi algoritam (funkcija) koja prevodi sliku u 
     3. matematicka greska - unos zabranjene matematicke operacije
   5. Korisnicki interfejs
     1. to be link...
-2.
-## Nefunkcionalna specifikacija:
+
+## Nefunkcionalna specifikacija
 
   1. Slika ne sme da se cuva na disk
   2. Servis za prepoznavanje slika je odvojen server sa kojim se komunicira preko HTTP API-a
   3. Potrebno je koristiti iskljucivo python (3.x)
   4. Potrebno je koristiti tkinter biblioteku
-3.
+
 ## Arhitektura
 
   1. Client
@@ -46,6 +47,7 @@ Treba neuronskom mrezom da se napravi algoritam (funkcija) koja prevodi sliku u 
       2. Modul za komunikaciju sa serverom
       3. Modul za evaluaciju
       4. Modul za parse slike
+
     2. Modul za parse slike
       1. Prima &quot;canvas&quot; object
       2. Vraca image objekat koji je niz byteova duzine 784
@@ -64,14 +66,17 @@ Treba neuronskom mrezom da se napravi algoritam (funkcija) koja prevodi sliku u 
       1. Odgovor servera moze biti greska ili ocekivana vrednost
       2. Pri dobijanju odgovora ako nije doslo do greske, vrednost se upisuje u buffer i poziva se modul za evaluaciju
       3. Ako je odgovor greska, client to treba dati do znanja korisniku tako sto ispisuje gresku
+
   2. Server
     1. Primanje podataka preko endpointa za post requestove clienta
       1. Server prima reprezentaciju slike u JSON formatu
+
     2. Slanje odgovora (response)
       1. U slucaju da nema greske server odgovara sa celim brojem i status kodom 200
       2. U slucaju pogresnog requesta server vraca status kod 400
       3. U slucaju greske pri prepoznavanju slike server vraca unexpected error, kod 500
     3. Server importuje modul za prepoznavanje slika
+
   3. Modul za prepoznavanje slika
     1. Modul uvek pretpostavlja da je dobio validan podatak.
     2. Nacin za prepoznavanje slike
