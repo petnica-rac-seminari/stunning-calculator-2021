@@ -2,9 +2,6 @@ import tkinter
 import numpy
 from PIL import Image, ImageDraw, ImageFont
 
-from matplotlib import pyplot
-from matplotlib import patches
-
 def GetMinMaxPoints(points):
     xMax = points[numpy.argmax(points[:, 0]), 0]
     xMin = points[numpy.argmin(points[:, 0]), 0]

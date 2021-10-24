@@ -3,7 +3,7 @@ import tkinter
 import tkinter.messagebox as mb
 import os
 import numpy
-#import image_parse
+import image_parse
 
 window = Tk()
 window.title('Racunajka')
@@ -14,27 +14,37 @@ window.configure(bg='black')
 current_x, current_y = 0,0
 color = 'black'
 
-def locate_xy(event):
-
-    global current_x, current_y
-    current_x, current_y = event.x, event.y
-
 nizTacaka = []
+misJePritisnut = False
 
-def addLine(event):
-    global current_x, current_y    
-    if event.x > 0 and event.x < 337 and event.y > 0 and event.y < 339:
-        canvas.create_line((current_x,current_y,event.x,event.y),fill = color)        
-        current_x, current_y = event.x, event.y
-        nizTacaka.append([event.x, event.y])
-        print(event.x, event.y)        
+def mouseDown(event):
+     global current_x, current_y, misJePritisnut
+     misJePritisnut = True
+     nizTacaka.append([])
+     current_x, current_y = event.x, event.y
+
+def mouseUp(event):
+     global misJePritisnut
+     misJePritisnut = False
+
+def mouseMotion(event):
+
+     global current_x, current_y, misJePritisnut
+
+     if misJePritisnut and event.x > 0 and event.x < 337 and event.y > 0 and event.y < 339:
+
+          canvas.create_line((current_x,current_y,event.x,event.y),fill = color)        
+
+          current_x, current_y = event.x, event.y
+          nizTacaka[-1].append([event.x, event.y])          
 
 
 canvas= Canvas(window,background='white',width=337,height=339) 
 canvas.place(x=0,y=0)
 
-canvas.bind('<Button-1>', locate_xy)
-canvas.bind('<B1-Motion>',addLine)
+canvas.bind('<Button-1>', mouseDown)
+canvas.bind('<ButtonRelease-1>', mouseUp)
+canvas.bind('<B1-Motion>', mouseMotion)
 
 
 #BUTTON
@@ -49,11 +59,13 @@ def mnozenje():
 def deljnje():
      operacija = '/'
 #FUNKCIJA ZA SLANJE 
-def slanje():
+def slanje():     
+     canvas.delete("all")
      ulaz = numpy.array(nizTacaka)
      print(ulaz)
-     izlaz = image_parse.ParseImage(ulaz)    
-     print(izlaz)
+     nizTacaka.clear()
+     #izlaz = image_parse.ParseImage(ulaz)    
+     #print(izlaz)
 
     
 #VELICINA
@@ -101,7 +113,7 @@ but_deljenje = Button(window,text='✓', image = common_img,
 width= wid ,height= hei, bd = 3,
 compound="c",bg='green',fg='white',
 font= ("Verdana" , 30,'bold'),
-#command = slanje
+command = slanje
 )
 but_deljenje.place(x =prvax, y= prvay+341)
 
@@ -109,8 +121,8 @@ but_deljenje.place(x =prvax, y= prvay+341)
 #myLabel1=Label(window,)
 
 #ISPRIS REZULTATA
-Label2= Label(window,'ovde ide rezultat')
-Label2.place(x=0,y=580)
+#Label2= Label(window,'ovde ide rezultat')
+#Label2.place(x=0,y=580)
       
     
 

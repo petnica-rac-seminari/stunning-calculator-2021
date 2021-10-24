@@ -28,6 +28,8 @@ ax.add_patch(rect)
 ax.scatter([maxPoint[0], minPoint[0]], [maxPoint[1], minPoint[1]], marker = ".")
 
 print(points)
+
+print("uslo je u sranje")
 result = image_parse.ParseImage(points)
 print(result)
 pyplot.show()
