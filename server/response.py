@@ -2,7 +2,7 @@ from flask import jsonify
 import json
 
 import numpy as npy
-import machine_learning.prepoznavanje as ML
+import prepoznavanje as ML
 from status_codes import *
 from imageObject import *
 class Response():
@@ -32,7 +32,7 @@ class Response():
         #SLANJE ML FUNKCIJI
         try:
             number = ML.PrepoznavanjeCifre(pixel_ints)
-
+            print(number)
             #provera da li je cifra
             if type(number) != int:
                 raise Exception()

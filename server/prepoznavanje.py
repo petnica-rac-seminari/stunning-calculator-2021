@@ -40,6 +40,7 @@ def PrepoznavanjeCifre(X):
     yh = utils.Softmax(z3)
 
     rez = np.argmax(yh, axis=1)
+    rez = yh[rez[0]]
     return rez
 
 #_, _, primerX, primery = dataset.get_data()
