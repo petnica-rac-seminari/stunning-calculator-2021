@@ -1,5 +1,3 @@
-
-
 # Stunning calculator
 
 ## Opis problema
