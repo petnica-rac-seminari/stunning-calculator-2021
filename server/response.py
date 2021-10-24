@@ -38,9 +38,7 @@ class Response():
                 raise Exception()
             if not (number>=0 and number<=9):
                 raise Exception()
-
-        try:
-            number = Machinelearning.MLTest(pixel_ints)
+                
             #response
             return jsonify(number), StatusCodes.OK
         except:
