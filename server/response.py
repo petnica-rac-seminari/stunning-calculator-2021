@@ -14,7 +14,7 @@ class Response():
             pixels = ImageObject.parse_obj(request).image
 
             #provera da li je duzine 784
-            if (len(pixels)!=4):
+            if (len(pixels)!=784):
                 raise Exception()
      
             #pretvaranje u npy.array
@@ -30,9 +30,15 @@ class Response():
         except:
             return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
         #SLANJE ML FUNKCIJI
-
         try:
             number = Machinelearning.MLTest(pixel_ints)
+
+            #provera da li je cifra
+            if type(number) != int:
+                raise Exception()
+            if not (number>=0 and number<=9):
+                raise Exception()
+                
             #response
             return jsonify(number), StatusCodes.OK
         except:
