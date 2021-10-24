@@ -9,8 +9,6 @@ def vectorize(y: np.ndarray) -> np.ndarray:
     vector_y = np.zeros((y.shape[0], 10))
     for i in range (0, y.shape[0]):
         vector_y[i, y[i]] = 1
-    print(vector_y[0])
-    print(y[0])
     return vector_y
 
 # staviti random redosled X-eva i y-ona
