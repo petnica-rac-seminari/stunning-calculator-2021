@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-tkinter
-os
-=======
->>>>>>> image-parser
 numpy
 PIL
