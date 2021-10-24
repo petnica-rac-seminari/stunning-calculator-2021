@@ -1,3 +1,4 @@
 class Machinelearning():
-    def MLTest(image):
-        return 3
+    def MLTest(pixels : list):
+        
+        return 11
