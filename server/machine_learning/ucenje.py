@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 import dataset as data
 import utils
@@ -24,7 +25,7 @@ b3 = np.random.uniform(-10, 10, (1, 10)) * 1e-2
 #endregion
 
 #region hyperparams
-epoch = int(1e3)
+epoch = int(1e0)
 lr = 1e-3
 
 L = []
@@ -93,5 +94,22 @@ plt.plot(L)
 _, ax = plt.subplots(1, 2)
 ax[0].matshow(ty)
 ax[1].matshow(tyh)
-plt.show()
+# plt.show()
+#endregion
+
+#region saving parameters
+# pd.DataFrame(w1).to_csv("parameters_w1.csv", header=None)
+# w1_test = pd.read_csv('parameters_w1.csv', sep=',',header=None)
+# w1_test = w1_test.to_numpy()
+# w1_test = w1_test[:, 1:]
+# print(w1_test)
+
+parameters = [w1, b1, w2, b2, w3, b3]
+file_names = []
+for i in range (0, len(parameters) // 2):
+    file_names.append("parameters/parameters_w" + str(i+1) + ".csv")
+    pd.DataFrame(parameters[2*i]).to_csv(file_names[-1], header=None)
+    file_names.append("parameters/parameters_b" + str(i+1) + ".csv")
+    pd.DataFrame(parameters[2*i+1]).to_csv(file_names[-1], header=None)
+
 #endregion
