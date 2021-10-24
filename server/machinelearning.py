@@ -1,5 +1,5 @@
 import numpy as npy
-
 class Machinelearning():
     def MLTest(pixels : npy.ndarray):
-        return 11
+        num = 2
+        return num
