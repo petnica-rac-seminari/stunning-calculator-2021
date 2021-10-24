@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter
 import tkinter.messagebox as mb
 import os
+import numpy
 
 window = Tk()
 window.title('Racunajka')
@@ -17,12 +18,14 @@ def locate_xy(event):
     global current_x, current_y
     current_x, current_y = event.x, event.y
 
+nizTacaka = []
 def addLine(event):
 
     global current_x, current_y
 
     canvas.create_line((current_x,current_y,event.x,event.y),fill = color)
     current_x, current_y = event.x, event.y
+    nizTacaka.append((event.x, event.y))
     print(event.x, event.y)
 
 canvas= Canvas(window,background='white',width=337,height=339) 
@@ -33,7 +36,7 @@ canvas.bind('<B1-Motion>',addLine)
 
 
 #BUTTON
-#FUNKCIJE ZA BUTTONE
+# #FUNKCIJE ZA BUTTONE
 operacija =' '
 def sabiranje():
      operacija = '+'
@@ -43,6 +46,11 @@ def mnozenje():
      operacija = '*'
 def deljnje():
      operacija = '/'
+#FUNKCIJA ZA SLANJE 
+def slanje():
+    pass
+
+    
 #VELICINA
 wid = 50 #sirina
 hei = 80 #visina
@@ -88,15 +96,20 @@ but_deljenje = Button(window,text='✓', image = common_img,
 width= wid ,height= hei, bd = 3,
 compound="c",bg='green',fg='white',
 font= ("Verdana" , 30,'bold'),
-#command = slanje
+command = slanje
 )
 but_deljenje.place(x =prvax, y= prvay+341)
 
+#ISPIS IZRAZA
+#myLabel1=Label(window,)
 
+#ISPRIS REZULTATA
+#myLabel2= Label(window,rezultat)
 
       
     
 
+#EROR BLOK
 
 
 
