@@ -37,7 +37,7 @@ def mouseMotion(event):
           canvas.create_line((current_x,current_y,event.x,event.y),fill = color)        
 
           current_x, current_y = event.x, event.y
-          nizTacaka[-1].append([event.x, event.y])          
+          nizTacaka[-1].append(numpy.array([event.x, event.y]))
 
 
 canvas= Canvas(window,background='white',width=337,height=339) 
@@ -66,11 +66,10 @@ def deljnje():
 #FUNKCIJA ZA SLANJE 
 ispis = ' '
 infoMl= 1
-def slanje():     
-     canvas.delete("all")
-     ulaz = numpy.array(nizTacaka)
-     print(ulaz)
+def slanje():          
+     image_parse.ParseImage(nizTacaka)    
      nizTacaka.clear()
+     canvas.delete("all")
      
      but_rez['text']= but_rez['text'] + '1'
      #ispis = "poslato"
