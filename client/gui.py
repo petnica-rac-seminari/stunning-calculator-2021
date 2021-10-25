@@ -76,32 +76,39 @@ def deljnje():
      but_pos['text']= ispis
 #FUNKCIJA ZA SLANJE 
 rezultat = 0
-def slanje():        
-     global ispis  
-     arr = image_parse.ParseImage(nizTacaka)  
-     canvas.delete('all')
-     nizTacaka.clear()      
-
-     try:
+def prepoznaj():
+     try:          
+          print('Sending image recognision request')
           result = server_interface.SendParsedImage(arr)               
+          print('Gotten image result')
+
+          arr = image_parse.ParseImage(nizTacaka)  
+          canvas.delete('all')
+          nizTacaka.clear()      
           
           ispis = ispis + result
           but_pos['text'] = ispis
-
-          try:
-               but_rez['text'] = server_interface.evaluate(ispis)
-          except:
-               but_rez['text'] = 'Invalid input'
-               print('failed to evalueate: ', ispis)
      except:
           print("Failed to send parsed image to server")           
+def izracunaj():        
+     global ispis       
+     
+     try:
+          print('Sending evaluation request')
+          but_rez['text'] = server_interface.evaluate(ispis)
+          print('Gotten evaluation request')
+     except:
+          but_rez['text'] = 'Invalid input'
+          print('Failed to evalueate: ', ispis)     
 
 def brisanje():
      global ispis
      ispis = ispis[:len(ispis)-1]
      but_pos['text'] = ispis 
      try:    
+          print('Sending evaluation request')
           but_rez['text'] = server_interface.evaluate(but_pos['text'])
+          print('Gotten evaluation request')
      except:
           but_rez['text'] = 'Invalid input'
           print('failed to evalueate: ', ispis)
@@ -148,14 +155,14 @@ font= ("Verdana" , 30,'bold'),
 command = deljnje
 )
 but_deljenje.place(x =prvax, y= prvay+255)
-#SALJI
-but_deljenje = Button(window,text='✓', image = common_img,
+#IZRACUNAJ
+but_izracunaj = Button(window,text='=', image = common_img,
 width= wid ,height= hei, bd = 3,
 compound="c",bg='green',fg='white',
 font= ("Verdana" , 30,'bold'),
-command = slanje
+command = izracunaj
 )
-but_deljenje.place(x =prvax, y= prvay+341)
+but_izracunaj.place(x =prvax, y= prvay+341)
 #BRISANJE
 but_deljenje = Button(window,text='⤆', image = common_img,
 width= wid ,height= hei, bd = 3,
@@ -164,7 +171,14 @@ font= ("Verdana" , 27,'bold'),
 command= brisanje
 )
 but_deljenje.place(x =prvax, y= prvay+423)
-
+#PREPOZNANJAVANJE
+but_prepoznavanje = Button(window,text='Recognise', image = common_img,
+width= 100 ,height= 20, bd = 3,
+compound="c",bg='white',fg='grey',
+font= ("Verdana" , 10,'bold'),
+command = prepoznaj
+)
+but_prepoznavanje.place(x = int(canvas['width']) / 2 - 50, y = int(canvas['height']) - 26)
 #ISPIS REZULTATA
 but_rez = Button(window,text=rezultat, image = common_img,
 width= 337 ,height= 80, bd = 0,
@@ -179,6 +193,7 @@ width= 337 ,height= 80, bd = 0,
 compound="c",bg='white',fg='black',
 font= ("Verdana" , 20,'bold'),
 state= DISABLED,
+anchor="e"
 )
 but_pos.place(x =0, y=424)
 
