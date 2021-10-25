@@ -4,16 +4,17 @@ import pandas as pd
 
 import dataset as data
 import utils
+import pickle
 
 X, y, tX, ty = data.get_data()
 
 X = data.normalize(X)
 tX = data.normalize(tX)
 
-X = X[:12000]
+# X = X[:12000]
 tX = tX[:1000]
 
-y = y[:12000]
+# y = y[:12000]
 ty = ty[:1000]
 
 #region init w and b
@@ -29,7 +30,7 @@ b3 = np.random.uniform(-10, 10, (1, 10)) * k
 #endregion
 
 #region hyperparams
-epoch = int(2.2e2)
+epoch = int(1e2)
 lr = 8e-1
 
 L = []

@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import random
 
+import matplotlib.pyplot as plt
+
 import dataset
 import utils
 
@@ -52,10 +54,15 @@ def PrepoznavanjeCifre(X):
     #print("")
     #print("yk na kraju: ",yh)
 
+    plt.matshow(X.reshape(28,28))
+    plt.show()
+
     for i in range (0, 10):
         if yh[0][i] > yh[0][rez]:
             rez = i
     return rez
+    
+
 
 # print(dataset.get_data())
 # _, _, primerX, primery = dataset.get_data()
