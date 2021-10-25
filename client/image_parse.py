@@ -86,6 +86,8 @@ def ParseImage(group):
 
     #img = img.transpose(Image.FLIP_TOP_BOTTOM)   
 
+    img.show()
+
     img = img.resize((outputImageSize[0], outputImageSize[1]), Image.LANCZOS)   
 
     return (numpy.array(img.getdata()) / 255).tolist()

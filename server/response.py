@@ -13,6 +13,8 @@ class Response():
             #provera da li je list
             pixels = ImageObject.parse_obj(request).image
 
+            
+
             #provera da li je duzine 784
             if (len(pixels)!=784):
                 raise Exception()
