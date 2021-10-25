@@ -1,3 +1,8 @@
+from customError import CustomError
+def checkStrNumberValidity(strNumber):
+    strNumber.replace("-", "", 1)
+    strNumber.replace(".", "", 1)
+    return strNumber.isdigit()
 
 def evalEquation(equation):
     ops = {
@@ -16,6 +21,7 @@ def evalEquation(equation):
     stack = []
     queue = []
     lastNumber = -1
+    lastSign = -1
     
 
     for i in equation:
@@ -31,12 +37,16 @@ def evalEquation(equation):
 
         else:
             try:
-                while (priority[stack[-1]] >= priority[i]):
-                    queue.append(stack.pop())
+                if (equation.index(i) - lastSign >2):
+                    while (priority[stack[-1]] >= priority[i]):
+                        queue.append(stack.pop())
+                else:
+                    raise CustomError("2Operands")
             except:
                 pass
             stack.append(i)
             lastNumber = -1
+            lastSign = equation.index(i)
 
     for i in range(len(stack)):
         queue.append(stack.pop())
@@ -58,15 +68,28 @@ def evalEquation(equation):
             queue.remove(i)
         except:
             if i == "+" or i == "-" or i == "*" or i == "/":
-                right = float(stack.pop())
+                right = stack.pop()
+                if checkStrNumberValidity(right):
+                    right = float(right)
+                else:
+                    raise CustomError("EvalSideNotDigit")
                 try:
-                    left = float(stack.pop())
+                    left = stack.pop()
+                    if checkStrNumberValidity(left):
+                        left = float(left)
+                    else:
+                        raise CustomError("EvalSideNotDigit")
                 except:
                     left = float(0)
+
                 result = float(ops[i](left, right))
                 stack.append(str(result))
 
-    return float(stack[0])
+    if type(stack[0]):
+        return float(stack[0])
+    
+    else:
+        raise CustomError("EvalLastStackNotFloat")
 
-#print(evalEquation("-5+9"))
+print(evalEquation("5*/2"))
 
