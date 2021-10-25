@@ -22,7 +22,7 @@ def evalEquation(equation):
         if (i.isdigit() or i == "."):
             if lastNumber == -1:
                 queue.append(i)
-                lastNumber = queue.index(i)
+                lastNumber = len(queue) - 1
                 
             else:
                 queue[lastNumber] += i
@@ -65,5 +65,5 @@ def evalEquation(equation):
 
     return float(stack[0])
 
-#print(evalEquation("10.10/2"))
+#print(evalEquation("9/3/3"))
 
