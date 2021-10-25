@@ -39,13 +39,17 @@ def PrepoznavanjeCifre(X):
     z3 = a2 @ w3 + b3
     yh = utils.Softmax(z3)
 
-    rez = np.argmax(yh, axis=1)
-    rez = yh[rez[0]]
+    rez = 0
+    
+    for i in range (0, 10):
+        if yh[0][i] > yh[0][rez]:
+            rez = i
+        pass
     return rez
 
-#_, _, primerX, primery = dataset.get_data()
-#index = int(random.random() * primerX.shape[0])
-#primerX = primerX[index]
-#primery = primery[index]
-#print(primery)
-#print(PrepoznavanjeCifre(primerX))
+# _, _, primerX, primery = dataset.get_data()
+# index = int(random.random() * primerX.shape[0])
+# primerX = primerX[index]
+# primery = primery[index]
+# print(primery)
+# print(PrepoznavanjeCifre(primerX))
