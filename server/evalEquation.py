@@ -15,11 +15,19 @@ def evalEquation(equation):
     }
     stack = []
     queue = []
+    lastNumber = -1
     
 
     for i in equation:
         if i.isdigit():
-            queue.append(i)
+            if lastNumber == -1:
+                queue.append(i)
+                lastNumber = queue.index(i)
+                
+            else:
+                queue[lastNumber] += i
+            
+            
 
         else:
             try:
@@ -28,21 +36,23 @@ def evalEquation(equation):
             except:
                 pass
             stack.append(i)
+            lastNumber = -1
 
-    for i in stack:
+    for i in range(len(stack)):
         queue.append(stack.pop())
-    queue.append(stack.pop())
+    #try:
+        #queue.append(stack.pop())
+    #except:
+        #pass
 
     stack = []
     new_queue = []
     for i in queue:
         new_queue.append(i)
 
-    print(queue)
     for i in new_queue:
-        print(i)
+
         if i.isdigit():
-            print(f"{i} numeric")
             stack.append(i)
             queue.remove(i)
         elif i == "+" or i == "-" or i == "*" or i == "/":
@@ -51,7 +61,7 @@ def evalEquation(equation):
             result = int(ops[i](left, right))
             stack.append(str(result))
 
-    return stack[0]
+    return int(stack[0])
 
-print(evalEquation("2*6+2-9/3"))
+#print(evalEquation("10/5/2"))
 
