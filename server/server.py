@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 rsp = Response()
 
-@app.route('/recognize_image', methods=['POST'])
+@app.route('/recognise_image', methods=['POST'])
 def recognise_image():
     return rsp.handlePOSTReq(request.json)
 
