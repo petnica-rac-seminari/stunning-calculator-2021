@@ -160,7 +160,7 @@ but_deljenje.place(x =prvax, y= prvay+341)
 but_deljenje = Button(window,text='⤆', image = common_img,
 width= wid ,height= hei, bd = 3,
 compound="c",bg='red',fg='white',
-font= ("Verdana" , 30,'bold'),
+font= ("Verdana" , 27,'bold'),
 command= brisanje
 )
 but_deljenje.place(x =prvax, y= prvay+423)
@@ -169,7 +169,7 @@ but_deljenje.place(x =prvax, y= prvay+423)
 but_rez = Button(window,text=rezultat, image = common_img,
 width= 337 ,height= 80, bd = 0,
 compound="c",bg='white',fg='black',
-font= ("Verdana" , 30,'bold'),
+font= ("Verdana" , 27,'bold'),
 state= DISABLED,
 )
 but_rez.place(x =0, y=344)

@@ -108,6 +108,6 @@ def ParseImage(group : list) -> list:
 
     img = img.resize((outputImageSize[0], outputImageSize[1]), Image.LANCZOS)   
 
-    img.show()
+    #img.show()
     
     return (numpy.array(img.getdata())).tolist()
