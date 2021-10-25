@@ -53,12 +53,20 @@ class Response():
         except:
             return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
         try:
-            number = evalEquation(equation)
+            if len(equation)>10: ## TODO UPDATE TO 100
+                raise Exception("Equation too long")
+        except:
+            return jsonify('Equation too long'), StatusCodes.BAD_REQUEST
+        try:
+            evalResult = evalEquation(equation)
 
-            #provera da li je cifra
-            if type(number) != float:
-                raise Exception()
-                
-            return jsonify(number), StatusCodes.OK
+            try:
+                #provera da li je float
+                if type(evalResult) != float:
+                    raise Exception()
+            except:
+                return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
+
+            return jsonify(evalResult), StatusCodes.OK
         except:
             return jsonify('Unexpected server error'), StatusCodes.UNEXPECTED_ERROR

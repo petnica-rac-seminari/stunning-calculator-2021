@@ -136,3 +136,7 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+#ubyte
+*.idx1-ubyte
+*.idx3-ubyte
