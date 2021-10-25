@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import random
 
+import matplotlib.pyplot as plt
+
 import dataset
 import utils
 
@@ -47,6 +49,8 @@ def PrepoznavanjeCifre(X):
         if yh[0][i] > yh[0][rez]:
             rez = i
     return rez
+    
+
 
 
 # ZA TESTIRANJE FUNKCIJE KORISTECI MNIST DATASET

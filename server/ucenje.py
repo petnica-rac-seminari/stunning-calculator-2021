@@ -4,6 +4,7 @@ import pandas as pd
 
 import dataset as data
 import utils
+import pickle
 
 X, y, tX, ty = data.get_data()
 
@@ -29,7 +30,7 @@ b3 = np.random.uniform(-10, 10, (1, 10)) * k
 #endregion
 
 #region hyperparams
-epoch = int(1e0)
+epoch = int(1e2)
 lr = 8e-1
 
 L = []
