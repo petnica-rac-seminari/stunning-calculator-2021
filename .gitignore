@@ -142,4 +142,3 @@ cython_debug/
 *.idx1-ubyte
 
 #parameters for machine learning
-*.csv

@@ -1,3 +1,4 @@
+from mlxtend import data
 import pandas as pd
 import numpy as np
 import random
@@ -56,12 +57,13 @@ def PrepoznavanjeCifre(X):
             rez = i
     return rez
 
-#_, _, primerX, primery = dataset.get_data()
-#index = int(random.random() * primerX.shape[0])
-#primerX = primerX[index]
-#primery = primery[index]
-#print(primery)
-#print("primerX type: ", type(primerX))
-#print("primerX[0] type: ", type(primerX[0]))
-#print("primerX: ", primerX)
-#print(PrepoznavanjeCifre(primerX))
+# print(dataset.get_data())
+# _, _, primerX, primery = dataset.get_data()
+# index = int(random.random() * primerX.shape[0])
+# primerX = primerX[index]
+# primery = primery[index]
+# print(primery)
+# print("primerX type: ", type(primerX))
+# print("primerX[0] type: ", type(primerX[0]))
+# print("primerX: ", primerX)
+# print(PrepoznavanjeCifre(primerX))
