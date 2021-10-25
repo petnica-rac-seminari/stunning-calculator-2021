@@ -66,7 +66,7 @@ def DrawGroup(group, context, width):
         if len(group[i]) > 1:
             DrawPoints(group[i], context, width)   
 
-def ParseImage(group):
+def ParseImage(group : list) -> list:
     #The space between the image and the border
     borderSpacing = numpy.array((3, 3))
     outputImageSize = numpy.array((28, 28))
@@ -84,10 +84,8 @@ def ParseImage(group):
 
     DrawGroup(group, context, lineWidth)    
 
-    #img = img.transpose(Image.FLIP_TOP_BOTTOM)   
-
-    img.show()
+    #img = img.transpose(Image.FLIP_TOP_BOTTOM)       
 
     img = img.resize((outputImageSize[0], outputImageSize[1]), Image.LANCZOS)   
-
-    return (numpy.array(img.getdata()) / 255).tolist()
+    
+    return (numpy.array(img.getdata())).tolist()

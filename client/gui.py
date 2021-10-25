@@ -78,7 +78,9 @@ def deljnje():
 rezultat = 0
 def slanje():        
      global ispis  
-     arr = image_parse.ParseImage(nizTacaka)    
+     arr = image_parse.ParseImage(nizTacaka)  
+     canvas.delete('all')
+     nizTacaka.clear()      
 
      try:
           result = server_interface.SendParsedImage(arr)               
@@ -92,8 +94,7 @@ def slanje():
                but_rez['text'] = 'Invalid input'
                print('failed to evalueate: ', ispis)
      except:
-          print("Failed to send parsed image to server")     
-     nizTacaka.clear()     
+          print("Failed to send parsed image to server")           
 
 def brisanje():
      global ispis

@@ -4,10 +4,10 @@ import json
 
 def SendParsedImage(arr : list) -> str:
     try:                    
-        #value = requests.post('http://localhost:5000/recognise_image', json = { 
-        #    'image' : arr
-        #    })                        
-        #return str(value.json()) 
-        return "5"
+        print(arr)
+        value = requests.post('http://localhost:5000/recognise_image', json = { 
+            'image' : arr
+            })                        
+        return str(value.json())         
     except:        
         raise Exception("lele2")               
