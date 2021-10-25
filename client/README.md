@@ -23,4 +23,4 @@ Frontend(klijent) za program ,,stunning calculator''
 flask
 Pillow
 requests
-matplotlib.pyplot as plt
+matplotlib
