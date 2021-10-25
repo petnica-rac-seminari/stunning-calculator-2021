@@ -4,7 +4,7 @@ import json
 
 def SendParsedImage(arr : list) -> str:
     try:                    
-        value= requests.post('http://10.51.0.78:5000/recognise_image', json = { 
+        value= requests.post('http://localhost:5000/recognise_image', json = { 
             'image' : arr
             })       
         print("VALUE parse return: ",value)         
@@ -14,7 +14,7 @@ def SendParsedImage(arr : list) -> str:
 
 def evaluate(equation : str) -> float:
     try:                    
-        value= requests.post('http://10.51.0.78:5000/evaluate_equation', json = { 
+        value= requests.post('http://localhost:5000/evaluate_equation', json = { 
             'equation' : equation
             })
         print("EVAL return:", value)                

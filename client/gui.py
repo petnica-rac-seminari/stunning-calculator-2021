@@ -53,41 +53,59 @@ canvas.bind('<B1-Motion>', mouseMotion)
 #BUTTON
 # #FUNKCIJE ZA BUTTONE
 operacija =' '
+ispis = ''
 def sabiranje():
      operacija = '+'
-     but_pos['text']= but_pos['text'] + '+'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 def oduzimanje():
      operacija = '-'
-     but_pos['text']= but_pos['text'] + '-'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 def mnozenje():
      operacija = '*'
-     but_pos['text']= but_pos['text'] + '*'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 def deljnje():
      operacija = '/'
-     but_pos['text']= but_pos['text'] + '/'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 #FUNKCIJA ZA SLANJE 
-ispis = ' '
 rezultat = 0
-def slanje():          
-     arr = image_parse.ParseImage(nizTacaka)    
+def slanje():        
+     global ispis  
+     arr = image_parse.ParseImage(nizTacaka)  
+     canvas.delete('all')
+     nizTacaka.clear()      
 
-     #try:
-     result = server_interface.SendParsedImage(arr)     
+     try:
+          result = server_interface.SendParsedImage(arr)               
+          
+          ispis = ispis + result
+          but_pos['text'] = ispis
 
-     nizTacaka.clear()
-     canvas.delete("all")
-     
-     but_pos['text']= but_pos['text'] + result
-
-     rezultat = server_interface.evaluate(but_pos['text'])
-     but_rez['text'] = rezultat
-     #except:
-     #print("Failed to send parsed image")
+          try:
+               but_rez['text'] = server_interface.evaluate(ispis)
+          except:
+               but_rez['text'] = 'Invalid input'
+               print('failed to evalueate: ', ispis)
+     except:
+          print("Failed to send parsed image to server")           
 
 def brisanje():
-     string = str(but_pos['text'])     
-     but_pos['text'] = string[:len(string) - 1]
-     rezultat = server_interface.evaluate(but_pos['text'])
+     global ispis
+     ispis = ispis[:len(ispis)-1]
+     but_pos['text'] = ispis 
+     try:    
+          but_rez['text'] = server_interface.evaluate(but_pos['text'])
+     except:
+          but_rez['text'] = 'Invalid input'
+          print('failed to evalueate: ', ispis)
+
 
     
 #VELICINA

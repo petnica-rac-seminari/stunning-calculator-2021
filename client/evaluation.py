@@ -4,10 +4,8 @@ from flask import Flask, request, jsonify
 
 def evaluate_old(expression : str) -> float:
     try: 
-        print(expression)
-        string = eval(expression, {}, {})
-        print(string)
-        return string
+        string = eval(expression)
+        return str(string)
         #value = requests.post('http://10.51.0.78:5000/evaluate', json = {         
         #    'expression' : expression
         #    })

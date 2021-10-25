@@ -2,7 +2,7 @@ from flask import jsonify
 import json
 
 import numpy as npy
-from machinelearning import Machinelearning
+import prepoznavanje as ML
 from status_codes import *
 from imageObject import *
 from equationObject import *
@@ -14,6 +14,8 @@ class Response():
         try:
             #provera da li je list
             pixels = ImageObject.parse_obj(request).image
+
+            
 
             #provera da li je duzine 784
             if (len(pixels)!=784):
@@ -33,8 +35,8 @@ class Response():
             return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
         #SLANJE ML FUNKCIJI
         try:
-            number = Machinelearning.MLTest(pixel_ints)
-
+            number = ML.PrepoznavanjeCifre(pixel_ints)
+            print(number)
             #provera da li je cifra
             if type(number) != int:
                 raise Exception()
