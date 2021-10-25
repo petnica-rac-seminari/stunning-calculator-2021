@@ -44,7 +44,6 @@ def PrepoznavanjeCifre(X):
     for i in range (0, 10):
         if yh[0][i] > yh[0][rez]:
             rez = i
-        pass
     return rez
 
 # _, _, primerX, primery = dataset.get_data()
