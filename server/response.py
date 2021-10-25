@@ -53,7 +53,7 @@ class Response():
         except:
             return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
         try:
-            if len(equation)>10: ## TODO UPDATE TO 100
+            if len(equation)>100: 
                 raise Exception("Equation too long")
         except:
             return jsonify('Equation too long'), StatusCodes.BAD_REQUEST

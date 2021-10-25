@@ -4,7 +4,7 @@ import tkinter.messagebox as mb
 import os
 import numpy
 import image_parse
-import evaluation
+#import server_interface
 import server_interface
 
 window = Tk()
@@ -79,7 +79,7 @@ def slanje():
      
      but_pos['text']= but_pos['text'] + result
 
-     rezultat = evaluation.evaluate(but_pos['text'])
+     rezultat = server_interface.evaluate(but_pos['text'])
      but_rez['text'] = rezultat
      #except:
      #print("Failed to send parsed image")
@@ -87,7 +87,7 @@ def slanje():
 def brisanje():
      string = str(but_pos['text'])     
      but_pos['text'] = string[:len(string) - 1]
-     rezultat = evaluation.evaluate(but_pos['text'])
+     rezultat = server_interface.evaluate(but_pos['text'])
 
     
 #VELICINA

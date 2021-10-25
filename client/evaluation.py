@@ -2,7 +2,7 @@ import requests
 import numpy
 from flask import Flask, request, jsonify
 
-def evaluate(expression : str) -> float:
+def evaluate_old(expression : str) -> float:
     try: 
         print(expression)
         string = eval(expression, {}, {})
