@@ -59,11 +59,14 @@ def evalEquation(equation):
         except:
             if i == "+" or i == "-" or i == "*" or i == "/":
                 right = float(stack.pop())
-                left = float(stack.pop())
+                try:
+                    left = float(stack.pop())
+                except:
+                    left = float(0)
                 result = float(ops[i](left, right))
                 stack.append(str(result))
 
     return float(stack[0])
 
-#print(evalEquation("9/3/3"))
+#print(evalEquation("-5+9"))
 
