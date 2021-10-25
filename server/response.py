@@ -56,7 +56,7 @@ class Response():
             number = evalEquation(equation)
 
             #provera da li je cifra
-            if type(number) != int:
+            if type(number) != float:
                 raise Exception()
                 
             return jsonify(number), StatusCodes.OK

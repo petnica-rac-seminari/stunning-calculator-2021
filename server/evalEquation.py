@@ -19,7 +19,7 @@ def evalEquation(equation):
     
 
     for i in equation:
-        if i.isdigit():
+        if (i.isdigit() or i == "."):
             if lastNumber == -1:
                 queue.append(i)
                 lastNumber = queue.index(i)
@@ -40,10 +40,10 @@ def evalEquation(equation):
 
     for i in range(len(stack)):
         queue.append(stack.pop())
-    #try:
-        #queue.append(stack.pop())
-    #except:
-        #pass
+    try:
+        queue.append(stack.pop())
+    except:
+        pass
 
     stack = []
     new_queue = []
@@ -52,16 +52,18 @@ def evalEquation(equation):
 
     for i in new_queue:
 
-        if i.isdigit():
+        try:
+            float(i)
             stack.append(i)
             queue.remove(i)
-        elif i == "+" or i == "-" or i == "*" or i == "/":
-            right = int(stack.pop())
-            left = int(stack.pop())
-            result = int(ops[i](left, right))
-            stack.append(str(result))
+        except:
+            if i == "+" or i == "-" or i == "*" or i == "/":
+                right = float(stack.pop())
+                left = float(stack.pop())
+                result = float(ops[i](left, right))
+                stack.append(str(result))
 
-    return int(stack[0])
+    return float(stack[0])
 
-#print(evalEquation("10/5/2"))
+#print(evalEquation("10.10/2"))
 
