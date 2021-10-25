@@ -11,10 +11,10 @@ X, y, tX, ty = data.get_data()
 X = data.normalize(X)
 tX = data.normalize(tX)
 
-# X = X[:12000]
+X = X[:15000]
 tX = tX[:1000]
 
-# y = y[:12000]
+y = y[:15000]
 ty = ty[:1000]
 
 #region init w and b

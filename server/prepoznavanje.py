@@ -9,7 +9,6 @@ import dataset
 import utils
 
 def PrepoznavanjeCifre(X):
-    #print(X)
     X=dataset.normalize(X)
     w1 = pd.read_csv('parameters/parameters_w1.csv', sep=',',header=None)
     w1 = w1.to_numpy()
@@ -55,13 +54,9 @@ def PrepoznavanjeCifre(X):
 
 
 # ZA TESTIRANJE FUNKCIJE KORISTECI MNIST DATASET
-# print(dataset.get_data())
 # _, _, primerX, primery = dataset.get_data()
 # index = int(random.random() * primerX.shape[0])
 # primerX = primerX[index]
 # primery = primery[index]
 # print(primery)
-# print("primerX type: ", type(primerX))
-# print("primerX[0] type: ", type(primerX[0]))
-# print("primerX: ", primerX)
 # print(PrepoznavanjeCifre(primerX))

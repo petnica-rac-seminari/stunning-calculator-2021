@@ -38,5 +38,3 @@ def get_data():
     yt = vectorize(yt)
 
     return X, y, Xt, yt
-
-get_data()
