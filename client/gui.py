@@ -53,7 +53,7 @@ canvas.bind('<B1-Motion>', mouseMotion)
 #BUTTON
 # #FUNKCIJE ZA BUTTONE
 operacija =' '
-ispis = ''
+ispis = str()
 def sabiranje():
      operacija = '+'
      global ispis
@@ -77,41 +77,45 @@ def deljnje():
 #FUNKCIJA ZA SLANJE 
 rezultat = 0
 def prepoznaj():
-     try:          
-          print('Sending image recognision request')
-          result = server_interface.SendParsedImage(arr)               
-          print('Gotten image result')
+     global ispis
+     arr = image_parse.ParseImage(nizTacaka)  
+     print('Sending image recognision request')
 
-          arr = image_parse.ParseImage(nizTacaka)  
-          canvas.delete('all')
-          nizTacaka.clear()      
-          
-          ispis = ispis + result
-          but_pos['text'] = ispis
+     try:          
+          result = server_interface.SendParsedImage(arr)                         
      except:
-          print("Failed to send parsed image to server")           
-def izracunaj():        
-     global ispis       
+          but_error['text'] = "Failed to send parsed image to server"           
+          return     
+     but_error['text'] = ''
+     canvas.delete('all')
+     nizTacaka.clear()      
      
+     ispis = ispis + str(result)
+     but_pos['text'] = ispis   
+
+def updateRezultat():
+     global ispis       
+     print('Sending evaluation request')
      try:
-          print('Sending evaluation request')
-          but_rez['text'] = server_interface.evaluate(ispis)
-          print('Gotten evaluation request')
+          result = server_interface.evaluate(ispis)
+          try:
+               result = float(result)
+               but_rez['text'] = str(result)
+          except:
+               but_error['text'] = "Unexpected server error"           
+               retrun
      except:
-          but_rez['text'] = 'Invalid input'
-          print('Failed to evalueate: ', ispis)     
+          but_error['text'] = 'Invalid input'          
+          return
+     print('Gotten evaluation request')
+def izracunaj():       
+
+     updateRezultat()
 
 def brisanje():
      global ispis
      ispis = ispis[:len(ispis)-1]
-     but_pos['text'] = ispis 
-     try:    
-          print('Sending evaluation request')
-          but_rez['text'] = server_interface.evaluate(but_pos['text'])
-          print('Gotten evaluation request')
-     except:
-          but_rez['text'] = 'Invalid input'
-          print('failed to evalueate: ', ispis)
+     but_pos['text'] = ispis      
 
 
     
@@ -196,8 +200,16 @@ state= DISABLED,
 anchor="e"
 )
 but_pos.place(x =0, y=424)
+#ERROR MESSAGE
+but_error = Button(window,text='', image = common_img,
+width= 100 ,height= 20, bd = 0,
+compound="c",bg='white',fg='red',
+font= ("Verdana" , 10,'bold'),
+state= DISABLED,
+anchor="c"
+)
+but_error.place(x =int(canvas['width']) / 2 - 50, y=int(canvas['height']) + 5)
 
-    
 
 #EROR BLOK
 

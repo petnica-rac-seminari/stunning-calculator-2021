@@ -3,8 +3,7 @@ import numpy
 import json
 
 def SendParsedImage(arr : list) -> str:
-    try:                    
-        #print(arr)
+    try:        
         value = requests.post('http://localhost:5000/recognise_image', json = { 
             'image' : arr
             })                        
@@ -16,8 +15,7 @@ def evaluate(equation : str) -> float:
     try:                    
         value= requests.post('http://localhost:5000/evaluate_equation', json = { 
             'equation' : equation
-            })
-        print("EVAL return:", value)                
+            })            
         return str(value.json()) 
     except:        
         raise Exception("kukulele")                  

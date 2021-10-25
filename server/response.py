@@ -36,13 +36,11 @@ class Response():
         #SLANJE ML FUNKCIJI
         try:
             number = ML.PrepoznavanjeCifre(pixel_ints)
-            print(number)
             #provera da li je cifra
             if type(number) != int:
                 raise Exception()
             if not (number>=0 and number<=9):
                 raise Exception()
-                
             #response
             return jsonify(number), StatusCodes.OK
         except:
