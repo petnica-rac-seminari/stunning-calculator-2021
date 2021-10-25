@@ -53,41 +53,60 @@ canvas.bind('<B1-Motion>', mouseMotion)
 #BUTTON
 # #FUNKCIJE ZA BUTTONE
 operacija =' '
+ispis = ''
 def sabiranje():
      operacija = '+'
-     but_pos['text']= but_pos['text'] + '+'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 def oduzimanje():
      operacija = '-'
-     but_pos['text']= but_pos['text'] + '-'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 def mnozenje():
      operacija = '*'
-     but_pos['text']= but_pos['text'] + '*'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 def deljnje():
      operacija = '/'
-     but_pos['text']= but_pos['text'] + '/'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 #FUNKCIJA ZA SLANJE 
-ispis = ' '
 rezultat = 0
-def slanje():          
+def slanje():        
+     global ispis  
      arr = image_parse.ParseImage(nizTacaka)    
 
-     #try:
-     result = server_interface.SendParsedImage(arr)     
+     try:
+          result = server_interface.SendParsedImage(arr)     
 
-     nizTacaka.clear()
-     canvas.delete("all")
-     
-     but_pos['text']= but_pos['text'] + result
+          nizTacaka.clear()
+          canvas.delete("all")
+          
+          ispis = ispis + result
+          but_pos['text'] = ispis
 
-     rezultat = evaluation.evaluate(but_pos['text'])
-     but_rez['text'] = rezultat
-     #except:
-     #print("Failed to send parsed image")
+          try:
+               but_rez['text'] = evaluation.evaluate(ispis)
+          except:
+               but_rez['text'] = 'Invalid input'
+               print('failed to evalueate: ', ispis)
+     except:
+          print("Failed to send parsed image to server")
 
 def brisanje():
-     string = str(but_pos['text'])     
-     but_pos['text'] = string[:len(string) - 1]
-     rezultat = evaluation.evaluate(but_pos['text'])
+     global ispis
+     ispis = ispis[:len(ispis)-1]
+     but_pos['text'] = ispis 
+     try:    
+          but_rez['text'] = evaluation.evaluate(but_pos['text'])
+     except:
+          but_rez['text'] = 'Invalid input'
+          print('failed to evalueate: ', ispis)
+
 
     
 #VELICINA

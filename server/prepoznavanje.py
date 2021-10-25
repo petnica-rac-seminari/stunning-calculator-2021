@@ -56,9 +56,12 @@ def PrepoznavanjeCifre(X):
             rez = i
     return rez
 
-# _, _, primerX, primery = dataset.get_data()
-# index = int(random.random() * primerX.shape[0])
-# primerX = primerX[index]
-# primery = primery[index]
-# print(primery)
-# print(PrepoznavanjeCifre(primerX))
+#_, _, primerX, primery = dataset.get_data()
+#index = int(random.random() * primerX.shape[0])
+#primerX = primerX[index]
+#primery = primery[index]
+#print(primery)
+#print("primerX type: ", type(primerX))
+#print("primerX[0] type: ", type(primerX[0]))
+#print("primerX: ", primerX)
+#print(PrepoznavanjeCifre(primerX))

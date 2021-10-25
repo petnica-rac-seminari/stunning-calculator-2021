@@ -7,6 +7,9 @@ import utils
 
 X, y, tX, ty = data.get_data()
 
+X = data.normalize(X)
+tX = data.normalize(tX)
+
 X = X[:12000]
 tX = tX[:1000]
 
