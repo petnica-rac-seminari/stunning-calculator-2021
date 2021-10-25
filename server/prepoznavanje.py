@@ -6,6 +6,7 @@ import dataset
 import utils
 
 def PrepoznavanjeCifre(X):
+    X=dataset.normalize(X)
     w1 = pd.read_csv('parameters/parameters_w1.csv', sep=',',header=None)
     w1 = w1.to_numpy()
     w1 = w1[:, 1:]
@@ -40,7 +41,16 @@ def PrepoznavanjeCifre(X):
     yh = utils.Softmax(z3)
 
     rez = 0
-    
+
+    #ispis slike
+    #for j in range(0,28):
+        #for i in range(0,28):
+            #print("%.2f" % round(X[28*j+i],2),end=" ")
+        #print("")
+    #print("")
+    #print("")
+    #print("yk na kraju: ",yh)
+
     for i in range (0, 10):
         if yh[0][i] > yh[0][rez]:
             rez = i
