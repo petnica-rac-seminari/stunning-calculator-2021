@@ -46,18 +46,6 @@ def PrepoznavanjeCifre(X):
 
     rez = 0
 
-    #ispis slike
-    #for j in range(0,28):
-        #for i in range(0,28):
-            #print("%.2f" % round(X[28*j+i],2),end=" ")
-        #print("")
-    #print("")
-    #print("")
-    #print("yk na kraju: ",yh)
-
-    plt.matshow(X.reshape(28,28))
-    plt.show()
-
     for i in range (0, 10):
         if yh[0][i] > yh[0][rez]:
             rez = i
@@ -65,6 +53,8 @@ def PrepoznavanjeCifre(X):
     
 
 
+
+# ZA TESTIRANJE FUNKCIJE KORISTECI MNIST DATASET
 # print(dataset.get_data())
 # _, _, primerX, primery = dataset.get_data()
 # index = int(random.random() * primerX.shape[0])
