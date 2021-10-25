@@ -2,9 +2,11 @@ from flask import jsonify
 import json
 
 import numpy as npy
-from machinelearning import Machinelearning
+import prepoznavanje as ML
 from status_codes import *
 from imageObject import *
+from equationObject import *
+from evalEquation import evalEquation
 class Response():
     def handlePOSTReq(self,request :json):
 
@@ -12,6 +14,8 @@ class Response():
         try:
             #provera da li je list
             pixels = ImageObject.parse_obj(request).image
+
+            
 
             #provera da li je duzine 784
             if (len(pixels)!=784):
@@ -31,15 +35,38 @@ class Response():
             return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
         #SLANJE ML FUNKCIJI
         try:
-            number = Machinelearning.MLTest(pixel_ints)
-
+            number = ML.PrepoznavanjeCifre(pixel_ints)
             #provera da li je cifra
             if type(number) != int:
                 raise Exception()
             if not (number>=0 and number<=9):
                 raise Exception()
-                
             #response
             return jsonify(number), StatusCodes.OK
+        except:
+            return jsonify('Unexpected server error'), StatusCodes.UNEXPECTED_ERROR
+
+    def handleEquation(self,request :json):
+
+        try:
+            equation = EquationObject.parse_obj(request).equation
+        except:
+            return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
+        try:
+            if len(equation)>100: 
+                raise Exception("Equation too long")
+        except:
+            return jsonify('Equation too long'), StatusCodes.BAD_REQUEST
+        try:
+            evalResult = evalEquation(equation)
+
+            try:
+                #provera da li je float
+                if type(evalResult) != float:
+                    raise Exception()
+            except:
+                return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
+
+            return jsonify(evalResult), StatusCodes.OK
         except:
             return jsonify('Unexpected server error'), StatusCodes.UNEXPECTED_ERROR

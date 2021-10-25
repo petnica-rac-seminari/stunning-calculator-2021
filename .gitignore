@@ -136,3 +136,9 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+#mnist dataset
+*.idx3-ubyte
+*.idx1-ubyte
+
+#parameters for machine learning

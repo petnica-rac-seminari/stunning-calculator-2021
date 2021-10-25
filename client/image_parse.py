@@ -1,6 +1,7 @@
 import tkinter
 import numpy
 from PIL import Image, ImageDraw, ImageFont
+import matplotlib.pyplot as plt
 
 def ConvertGroup(group):
     arr = []    
@@ -10,8 +11,7 @@ def ConvertGroup(group):
 
     return arr
 
-def GetPointsMinMax(points):
-    print(len(points))
+def GetPointsMinMax(points):    
     xMax = points[numpy.argmax(points[:, 0]), 0]
     xMin = points[numpy.argmin(points[:, 0]), 0]
     yMax = points[numpy.argmax(points[:, 1]), 1]
@@ -37,10 +37,22 @@ def GetGroupMinMax(group):
 
 def TransformPoints(points, minPoint, maxPoint, outputSize, spacing):    
     inputSize = maxPoint - minPoint
-    scale = max(inputSize[0], inputSize[1])
+    offset = (0, 0)    
+    if (inputSize[0] > inputSize[1]):
+        scale = inputSize[0]
+        offset = (0, (inputSize[0] - inputSize[1]) / 2)
+    else:
+        scale = inputSize[1]
+        offset = ((inputSize[1] - inputSize[0]) / 2, 0)    
     
+    #[minPoint, maxPoint]
+    #[-0.5, 0.5]
+    #
+    #[-outputSize / 2 + spacing, outputSize / 2 - spacing]
+    #[spacing, outputSize - spacing]
+
     #map to [-0.5, 0.5]
-    points = (points - minPoint) / scale - 0.5
+    points = (points - minPoint + offset) / scale - 0.5        
 
     #map to [spacing, size - spacing]
     points = points * (outputSize - spacing * 2) + outputSize / 2   
@@ -67,11 +79,18 @@ def DrawGroup(group, context, width):
         if len(group[i]) > 1:
             DrawPoints(group[i], context, width)   
 
-def ParseImage(group):
+def PlotGroup(group):
+    for p in group:
+        p = numpy.array(p)
+        print('numpy array: ', p)        
+        plt.plot(p[:, 0], p[:, 1], 'bo')    
+
+def ParseImage(group : list) -> list:    
+
     #The space between the image and the border
-    borderSpacing = numpy.array((3, 3))
+    borderSpacing = numpy.array((6, 6))
     outputImageSize = numpy.array((28, 28))
-    lineWidth = 4  
+    lineWidth = 3  
     
     #Create an image double the size    
     img = Image.new('L', tuple(outputImageSize * 2))
@@ -79,23 +98,16 @@ def ParseImage(group):
 
     #get the top-left and bottom-right most points
     group = ConvertGroup(group)
-    minPoint, maxPoint = GetGroupMinMax(group)  
+    minPoint, maxPoint = GetGroupMinMax(group)         
 
-    print("\n\n\nPre transform")
-    print(group)
-
-    group = TransformGroup(group, minPoint, maxPoint, outputImageSize * 2, borderSpacing * 2)
-
-    print("\n\n\nPost transform")
-
-    print(group)
+    group = TransformGroup(group, minPoint, maxPoint, outputImageSize * 2, borderSpacing * 2)                
 
     DrawGroup(group, context, lineWidth)    
 
-    #img = img.transpose(Image.FLIP_TOP_BOTTOM)   
+    #img = img.transpose(Image.FLIP_TOP_BOTTOM)       
 
-    img = img.resize((outputImageSize[0], outputImageSize[1]), Image.LANCZOS) 
+    img = img.resize((outputImageSize[0], outputImageSize[1]), Image.LANCZOS)   
 
-    img.show()
-
-    return numpy.array(img.getdata())
+    #img.show()
+    
+    return (numpy.array(img.getdata())).tolist()

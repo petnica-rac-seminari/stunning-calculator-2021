@@ -4,7 +4,8 @@ import tkinter.messagebox as mb
 import os
 import numpy
 import image_parse
-import evaluation
+#import server_interface
+import server_interface
 
 window = Tk()
 window.title('Racunajka')
@@ -52,37 +53,70 @@ canvas.bind('<B1-Motion>', mouseMotion)
 #BUTTON
 # #FUNKCIJE ZA BUTTONE
 operacija =' '
+ispis = str()
 def sabiranje():
      operacija = '+'
-     but_pos['text']= but_pos['text'] + '+'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 def oduzimanje():
      operacija = '-'
-     but_pos['text']= but_pos['text'] + '-'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 def mnozenje():
      operacija = '*'
-     but_pos['text']= but_pos['text'] + '*'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 def deljnje():
      operacija = '/'
-     but_pos['text']= but_pos['text'] + '/'
+     global ispis
+     ispis = ispis + operacija
+     but_pos['text']= ispis
 #FUNKCIJA ZA SLANJE 
-ispis = ' '
 rezultat = 0
-def slanje():          
-     image_parse.ParseImage(nizTacaka)    
-     nizTacaka.clear()
-     canvas.delete("all")
+def prepoznaj():
+     global ispis
+     arr = image_parse.ParseImage(nizTacaka)  
+     print('Sending image recognision request')
+
+     try:          
+          result = server_interface.SendParsedImage(arr)                         
+     except:
+          but_error['text'] = "Failed to send parsed image to server"           
+          return     
+     but_error['text'] = ''
+     canvas.delete('all')
+     nizTacaka.clear()      
      
-     but_pos['text']= but_pos['text'] + '1'
+     ispis = ispis + str(result)
+     but_pos['text'] = ispis   
 
+def updateRezultat():
+     global ispis       
+     print('Sending evaluation request')
+     try:
+          result = server_interface.evaluate(ispis)
+          try:
+               result = float(result)
+               but_rez['text'] = str(result)
+          except:
+               but_error['text'] = "Unexpected server error"           
+               return
+     except:
+          but_error['text'] = 'Invalid input'          
+          return
+     print('Gotten evaluation request')
+def izracunaj():       
 
-     rezultat = evaluation.evaluate(but_rez['text'])
-     but_rez['text'] = rezultat
-     #ispis = "poslato"
-     #izlaz = image_parse.ParseImage(ulaz)    
-     #print(izlaz)
+     updateRezultat()
+
 def brisanje():
-     string = str(but_pos['text'])     
-     but_pos['text'] = string[:len(string) - 1]
+     global ispis
+     ispis = ispis[:len(ispis)-1]
+     but_pos['text'] = ispis      
+
 
     
 #VELICINA
@@ -125,28 +159,35 @@ font= ("Verdana" , 30,'bold'),
 command = deljnje
 )
 but_deljenje.place(x =prvax, y= prvay+255)
-#SALJI
-but_deljenje = Button(window,text='✓', image = common_img,
+#IZRACUNAJ
+but_izracunaj = Button(window,text='=', image = common_img,
 width= wid ,height= hei, bd = 3,
 compound="c",bg='green',fg='white',
 font= ("Verdana" , 30,'bold'),
-command = slanje
+command = izracunaj
 )
-but_deljenje.place(x =prvax, y= prvay+341)
+but_izracunaj.place(x =prvax, y= prvay+341)
 #BRISANJE
 but_deljenje = Button(window,text='⤆', image = common_img,
 width= wid ,height= hei, bd = 3,
 compound="c",bg='red',fg='white',
-font= ("Verdana" , 30,'bold'),
+font= ("Verdana" , 27,'bold'),
 command= brisanje
 )
 but_deljenje.place(x =prvax, y= prvay+423)
-
+#PREPOZNANJAVANJE
+but_prepoznavanje = Button(window,text='Recognise', image = common_img,
+width= 100 ,height= 20, bd = 3,
+compound="c",bg='white',fg='grey',
+font= ("Verdana" , 10,'bold'),
+command = prepoznaj
+)
+but_prepoznavanje.place(x = int(canvas['width']) / 2 - 50, y = int(canvas['height']) - 26)
 #ISPIS REZULTATA
 but_rez = Button(window,text=rezultat, image = common_img,
 width= 337 ,height= 80, bd = 0,
 compound="c",bg='white',fg='black',
-font= ("Verdana" , 30,'bold'),
+font= ("Verdana" , 27,'bold'),
 state= DISABLED,
 )
 but_rez.place(x =0, y=344)
@@ -156,10 +197,19 @@ width= 337 ,height= 80, bd = 0,
 compound="c",bg='white',fg='black',
 font= ("Verdana" , 20,'bold'),
 state= DISABLED,
+anchor="e"
 )
 but_pos.place(x =0, y=424)
+#ERROR MESSAGE
+but_error = Button(window,text='', image = common_img,
+width= 500 ,height= 20, bd = 0,
+compound="c",bg='white',fg='red',
+font= ("Verdana" , 10,'bold'),
+state= DISABLED,
+anchor="c"
+)
+but_error.place(x =int(canvas['width']) / 2 - 250, y=int(canvas['height']) + 5)
 
-    
 
 #EROR BLOK
 
