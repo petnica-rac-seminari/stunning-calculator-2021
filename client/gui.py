@@ -103,7 +103,7 @@ def updateRezultat():
                but_rez['text'] = str(result)
           except:
                but_error['text'] = "Unexpected server error"           
-               retrun
+               return
      except:
           but_error['text'] = 'Invalid input'          
           return
