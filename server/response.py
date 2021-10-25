@@ -5,6 +5,8 @@ import numpy as npy
 from machinelearning import Machinelearning
 from status_codes import *
 from imageObject import *
+from equationObject import *
+from evalEquation import evalEquation
 class Response():
     def handlePOSTReq(self,request :json):
 
@@ -40,6 +42,23 @@ class Response():
                 raise Exception()
                 
             #response
+            return jsonify(number), StatusCodes.OK
+        except:
+            return jsonify('Unexpected server error'), StatusCodes.UNEXPECTED_ERROR
+
+    def handleEquation(self,request :json):
+
+        try:
+            equation = EquationObject.parse_obj(request).equation
+        except:
+            return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
+        try:
+            number = evalEquation(equation)
+
+            #provera da li je cifra
+            if type(number) != float:
+                raise Exception()
+                
             return jsonify(number), StatusCodes.OK
         except:
             return jsonify('Unexpected server error'), StatusCodes.UNEXPECTED_ERROR
