@@ -37,7 +37,13 @@ def GetGroupMinMax(group):
 
 def TransformPoints(points, minPoint, maxPoint, outputSize, spacing):    
     inputSize = maxPoint - minPoint
-    scale = max(inputSize[0], inputSize[1])
+    offset = (0, 0)    
+    if (inputSize[0] > inputSize[1]):
+        scale = inputSize[0]
+        offset = (0, (inputSize[0] - inputSize[1]) / 2)
+    else:
+        scale = inputSize[1]
+        offset = ((inputSize[1] - inputSize[0]) / 2, 0)    
     
     #[minPoint, maxPoint]
     #[-0.5, 0.5]
@@ -46,10 +52,10 @@ def TransformPoints(points, minPoint, maxPoint, outputSize, spacing):
     #[spacing, outputSize - spacing]
 
     #map to [-0.5, 0.5]
-    points = (points - minPoint) / scale - 0.5        
+    points = (points - minPoint + offset) / scale - 0.5        
 
     #map to [spacing, size - spacing]
-    #points = points * (outputSize - spacing * 2) + outputSize / 2   
+    points = points * (outputSize - spacing * 2) + outputSize / 2   
 
     # [-outputSize / 2 + spacing, outputSize / 2 - spacing]
     # [ spacing, outputSize - spacing]
@@ -79,14 +85,10 @@ def PlotGroup(group):
         print('numpy array: ', p)        
         plt.plot(p[:, 0], p[:, 1], 'bo')    
 
-def ParseImage(group : list) -> list:
-
-    #plt.ylim([0, 350])
-    #plt.xlim([0, 350])
-    #PlotGroup(group)
+def ParseImage(group : list) -> list:    
 
     #The space between the image and the border
-    borderSpacing = numpy.array((3, 3))
+    borderSpacing = numpy.array((6, 6))
     outputImageSize = numpy.array((28, 28))
     lineWidth = 3  
     
@@ -96,18 +98,9 @@ def ParseImage(group : list) -> list:
 
     #get the top-left and bottom-right most points
     group = ConvertGroup(group)
-    minPoint, maxPoint = GetGroupMinMax(group)     
-    #print(minPoint)
-    #print(maxPoint)
-    #plt.plot((minPoint[0], maxPoint[0]), (minPoint[1], maxPoint[1]), 'ro')     
-    #plt.show()
+    minPoint, maxPoint = GetGroupMinMax(group)         
 
-    group = TransformGroup(group, minPoint, maxPoint, outputImageSize * 2, borderSpacing * 2)            
-
-    #plt.ylim(bottom = -0.5, top = 0.5)
-    #plt.xlim(left = -0.5, right = 0.5)
-    #PlotGroup(group)
-    #plt.show()
+    group = TransformGroup(group, minPoint, maxPoint, outputImageSize * 2, borderSpacing * 2)                
 
     DrawGroup(group, context, lineWidth)    
 
@@ -115,6 +108,6 @@ def ParseImage(group : list) -> list:
 
     img = img.resize((outputImageSize[0], outputImageSize[1]), Image.LANCZOS)   
 
-    #img.show()
+    img.show()
     
     return (numpy.array(img.getdata())).tolist()
