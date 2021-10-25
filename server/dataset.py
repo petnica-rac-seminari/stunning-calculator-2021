@@ -16,12 +16,12 @@ def vectorize(y: np.ndarray) -> np.ndarray:
 # staviti random redosled X-eva i y-ona
 def get_data():
     X, y = loadlocal_mnist(
-        "machine_learning/train-images.idx3-ubyte",
-        "machine_learning/train-labels.idx1-ubyte"
+        "train-images.idx3-ubyte",
+        "train-labels.idx1-ubyte"
     )
     Xt, yt = loadlocal_mnist(
-        "machine_learning/t10k-images.idx3-ubyte",
-        "machine_learning/t10k-labels.idx1-ubyte"
+        "t10k-images.idx3-ubyte",
+        "t10k-labels.idx1-ubyte"
     )
     # i = 4
     # print(X[i])
