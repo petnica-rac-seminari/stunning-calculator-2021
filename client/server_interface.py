@@ -4,7 +4,7 @@ import json
 
 def SendParsedImage(arr : list) -> str:
     try:                    
-        print(arr)
+        #print(arr)
         value = requests.post('http://localhost:5000/recognise_image', json = { 
             'image' : arr
             })                        
