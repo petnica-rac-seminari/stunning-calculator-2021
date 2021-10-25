@@ -54,9 +54,9 @@ def PrepoznavanjeCifre(X):
 
 
 # ZA TESTIRANJE FUNKCIJE KORISTECI MNIST DATASET
-_, _, primerX, primery = dataset.get_data()
-index = int(random.random() * primerX.shape[0])
-primerX = primerX[index]
-primery = primery[index]
-print(primery)
-print(PrepoznavanjeCifre(primerX))
+# _, _, primerX, primery = dataset.get_data()
+# index = int(random.random() * primerX.shape[0])
+# primerX = primerX[index]
+# primery = primery[index]
+# print(primery)
+# print(PrepoznavanjeCifre(primerX))
