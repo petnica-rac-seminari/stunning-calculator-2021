@@ -6,6 +6,10 @@ import dataset
 import utils
 
 def PrepoznavanjeCifre(X):
+    print('X JE OVO', X)
+    X = dataset.normalize(X)
+    print('X NORMALIZOVANO', X)
+
     w1 = pd.read_csv('parameters/parameters_w1.csv', sep=',',header=None)
     w1 = w1.to_numpy()
     w1 = w1[:, 1:]
@@ -41,15 +45,20 @@ def PrepoznavanjeCifre(X):
 
     rez = 0
     
+    print('OVO JE YH ', yh)
+
     for i in range (0, 10):
         if yh[0][i] > yh[0][rez]:
             rez = i
         pass
     return rez
 
-# _, _, primerX, primery = dataset.get_data()
-# index = int(random.random() * primerX.shape[0])
-# primerX = primerX[index]
-# primery = primery[index]
-# print(primery)
-# print(PrepoznavanjeCifre(primerX))
+_, _, primerX, primery = dataset.get_data()
+index = int(random.random() * primerX.shape[0])
+primerX = primerX[index]
+primery = primery[index]
+print(primery)
+print("primerX type: ", type(primerX))
+print("primerX[0] type: ", type(primerX[0]))
+print("primerX: ", primerX)
+print(PrepoznavanjeCifre(primerX))
