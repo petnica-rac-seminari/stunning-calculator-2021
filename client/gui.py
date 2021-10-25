@@ -202,7 +202,7 @@ anchor="e"
 but_pos.place(x =0, y=424)
 #ERROR MESSAGE
 but_error = Button(window,text='', image = common_img,
-width= 100 ,height= 20, bd = 0,
+width= 500 ,height= 20, bd = 0,
 compound="c",bg='white',fg='red',
 font= ("Verdana" , 10,'bold'),
 state= DISABLED,
