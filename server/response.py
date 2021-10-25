@@ -5,6 +5,8 @@ import numpy as npy
 import prepoznavanje as ML
 from status_codes import *
 from imageObject import *
+from equationObject import *
+from evalEquation import evalEquation
 class Response():
     def handlePOSTReq(self,request :json):
 
@@ -43,5 +45,30 @@ class Response():
                 
             #response
             return jsonify(number), StatusCodes.OK
+        except:
+            return jsonify('Unexpected server error'), StatusCodes.UNEXPECTED_ERROR
+
+    def handleEquation(self,request :json):
+
+        try:
+            equation = EquationObject.parse_obj(request).equation
+        except:
+            return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
+        try:
+            if len(equation)>100: 
+                raise Exception("Equation too long")
+        except:
+            return jsonify('Equation too long'), StatusCodes.BAD_REQUEST
+        try:
+            evalResult = evalEquation(equation)
+
+            try:
+                #provera da li je float
+                if type(evalResult) != float:
+                    raise Exception()
+            except:
+                return jsonify('Invalid format'), StatusCodes.BAD_REQUEST
+
+            return jsonify(evalResult), StatusCodes.OK
         except:
             return jsonify('Unexpected server error'), StatusCodes.UNEXPECTED_ERROR
