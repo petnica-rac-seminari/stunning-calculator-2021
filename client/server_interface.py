@@ -10,4 +10,14 @@ def SendParsedImage(arr : list) -> str:
             })                        
         return str(value.json())         
     except:        
-        raise Exception("lele2")               
+        raise Exception("lele2")
+
+def evaluate(equation : str) -> float:
+    try:                    
+        value= requests.post('http://localhost:5000/evaluate_equation', json = { 
+            'equation' : equation
+            })
+        print("EVAL return:", value)                
+        return str(value.json()) 
+    except:        
+        raise Exception("kukulele")                  

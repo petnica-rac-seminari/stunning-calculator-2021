@@ -4,7 +4,7 @@ import tkinter.messagebox as mb
 import os
 import numpy
 import image_parse
-import evaluation
+#import server_interface
 import server_interface
 
 window = Tk()
@@ -89,7 +89,7 @@ def slanje():
           but_pos['text'] = ispis
 
           try:
-               but_rez['text'] = evaluation.evaluate(ispis)
+               but_rez['text'] = server_interface.evaluate(ispis)
           except:
                but_rez['text'] = 'Invalid input'
                print('failed to evalueate: ', ispis)
@@ -101,7 +101,7 @@ def brisanje():
      ispis = ispis[:len(ispis)-1]
      but_pos['text'] = ispis 
      try:    
-          but_rez['text'] = evaluation.evaluate(but_pos['text'])
+          but_rez['text'] = server_interface.evaluate(but_pos['text'])
      except:
           but_rez['text'] = 'Invalid input'
           print('failed to evalueate: ', ispis)
