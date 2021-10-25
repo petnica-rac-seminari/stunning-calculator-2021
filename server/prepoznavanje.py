@@ -9,6 +9,7 @@ import dataset
 import utils
 
 def PrepoznavanjeCifre(X):
+    #print(X)
     X=dataset.normalize(X)
     w1 = pd.read_csv('parameters/parameters_w1.csv', sep=',',header=None)
     w1 = w1.to_numpy()
