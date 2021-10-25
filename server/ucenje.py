@@ -4,7 +4,6 @@ import pandas as pd
 
 import dataset as data
 import utils
-import pickle
 
 X, y, tX, ty = data.get_data()
 

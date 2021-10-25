@@ -208,7 +208,7 @@ font= ("Verdana" , 10,'bold'),
 state= DISABLED,
 anchor="c"
 )
-but_error.place(x =int(canvas['width']) / 2 - 50, y=int(canvas['height']) + 5)
+but_error.place(x =int(canvas['width']) / 2 - 250, y=int(canvas['height']) + 5)
 
 
 #EROR BLOK
