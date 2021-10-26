@@ -105,7 +105,7 @@ def updateRezultat():
                but_error['text'] = "Unexpected server error"           
                return
      except:
-          but_error['text'] = 'Invalid input'          
+          but_error['text'] = 'Unexpected server error'          
           return
      print('Gotten evaluation request')
 def izracunaj():       
@@ -202,7 +202,7 @@ anchor="e"
 but_pos.place(x =0, y=424)
 #ERROR MESSAGE
 but_error = Button(window,text='', image = common_img,
-width= 500 ,height= 20, bd = 0,
+width= 419 ,height= 20, bd = 0,
 compound="c",bg='white',fg='red',
 font= ("Verdana" , 10,'bold'),
 state= DISABLED,
